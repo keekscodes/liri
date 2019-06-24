@@ -1,14 +1,13 @@
 // read and set environment variables with the dotenv package
 require("dotenv").config();
 
-
-// VARIABLES
-
-// fs read/write
-var fs = require("fs");
+/// VARIABLES ////
 
 // node-spotify-api npm
 var Spotify = require("node-spotify-api");
+
+// required to import the keys.js file and store it in a variable
+var keys = require("./keys.js");
 
 // axios npm
 var axios = require("axios");
@@ -16,8 +15,8 @@ var axios = require("axios");
 // moment-api
 var moment = require("moment");
 
-// required to import the keys.js file and store it in a variable
-var keys = require("./keys.js");
+// fs read/write
+var fs = require("fs");
 
 // initialize spotify api
 var spotify = new Spotify(keys.spotify);
@@ -27,10 +26,51 @@ var spotify = new Spotify(keys.spotify);
 var userCommand = process.argv[2];
 var inputParameter = process.argv[3];
 
-
+// FUNCTIONS
 userInput(userCommand, inputParameter);
 
-// FUNCTIONS
+
+
+// concert-this artist/band name here
+
+
+
+
+var concertInfo = function(inputParameter) {
+    var queryURL = "https://rest.bandsintown.com/artists/" + inputParameter + "/events?app_id=codingbootcamp";
+
+    axios.get(queryURL).then(
+        function(response) {
+            var jsonData = response.data;
+
+            if (!jsonData.length) {
+                console.log(`There are currently no events scheduled for ${inputParameter}. Check back again at a later time.`);
+                return;
+            }
+
+            console.log(`Check out these upcoming concerts for ${inputParameter}:`);
+
+            for (var i = 0; i < jsonData.length; i++) {
+                var show = jsonData[i];
+
+                // Print data about each concert
+                // If a concert doesn't have a region, display the country instead
+                // Use moment to format the date
+                console.log(
+                    show.venue.city +
+                    "," +
+                    (show.venue.region || show.venue.country) +
+                    " at " +
+                    show.venue.name +
+                    " " +
+                    moment(show.datetime).format("MM/DD/YYYY")
+                );
+            }
+        }
+    );
+};
+console.log(event);
+
 
 function userInput(userCommand, inputParameter) {
     switch (userCommand) {
@@ -54,30 +94,3 @@ function userInput(userCommand, inputParameter) {
             console.log("Hmmm...LIRI doesn't quite know that");
     }
 }
-
-
-// concert-this artist/band name here
-var concertInfo = function(inputParameter) {
-    var queryURL = `https://rest.bandsintown.com/artists/${inputParameter}/events?app_id=codingbootcamp`;
-
-    axios.get(queryURL)
-        .then(function(response) {
-            var jsonRes = response.data;
-
-            if (!jsonRes.length) {
-                console.log(`There are currently no events scheduled for ${artist}. Check back again at a later time.`);
-                return;
-            }
-
-            console.log(`Check out these upcoming concerts for ${artist}:`);
-
-            for (let i = 0; i < jsonRes.length; i++) {
-                let event = jsonRes[i];
-
-
-                console.log(`${event.venue.city}, ${event.venue.region || event.venue.country} at ${event.venue.name} ` + moment(event.dateTime).format("MM/DD/YYYY"));
-
-            }
-
-        });
-};
