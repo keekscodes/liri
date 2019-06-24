@@ -60,11 +60,6 @@ var concertInfo = function(inputParameter) {
 
 // spotify-this-song
 
-var artistName = function(artist) {
-    return artist.name;
-};
-
-
 var spotifyInfo = function(inputParameter) {
     if (inputParameter === undefined) {
         inputParameter = "The Sign";
