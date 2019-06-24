@@ -49,7 +49,7 @@ var concertInfo = function(inputParameter) {
                 var event = jsonEvents[i];
 
                 // info about each concert
-                console.log("**********EVENT INFO*********");
+                console.log("---------EVENT INFO---------");
                 console.log("VENUE: " + event.venue.name);
                 console.log("LOCATION: " + event.venue.city || event.venue.country);
                 console.log("DATE: " + moment(event.datetime).format("MM/DD/YYYY"));
@@ -57,6 +57,42 @@ var concertInfo = function(inputParameter) {
         }
     )
 }
+
+// spotify-this-song
+
+var artistName = function(artist) {
+    return artist.name;
+};
+
+
+var spotifyInfo = function(inputParameter) {
+    if (inputParameter === undefined) {
+        inputParameter = "The Sign";
+    }
+
+    spotify.search({
+            type: "track",
+            query: inputParameter
+        },
+        function(err, data) {
+            if (err) {
+                console.log("Error occurred: " + err);
+                return;
+            }
+
+            var songs = data.tracks.items;
+
+            for (var i = 0; i < songs.length; i++) {
+                console.log("----------------SONG INFO----------------");
+                console.log(i);
+                console.log("ARTIST(S): " + songs[i].artists[0].name);
+                console.log("SONG NAME: " + songs[i].name);
+                console.log("PREVIEW: " + songs[i].preview_url);
+                console.log("ALBUM: " + songs[i].album.name);
+            }
+        }
+    );
+};
 
 
 // Function for determining which command is executed
@@ -66,10 +102,10 @@ var userInput = function(command, userParam) {
             concertInfo(userParam);
             break;
         case "spotify-this-song":
-            getMeSpotify(userParam);
+            spotifyInfo(userParam);
             break;
         case "movie-this":
-            getMeMovie(userParam);
+            movieInfo(userParam);
             break;
         case "do-what-it-says":
             doWhatItSays();
