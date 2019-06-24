@@ -29,3 +29,28 @@ var inputParameter = process.argv[3];
 
 
 userInput(userCommand, inputParameter);
+
+// FUNCTIONS
+
+function userInput(userCommand, inputParameter) {
+    switch (userCommand) {
+        case 'concert-this':
+            concertInfo(inputParameter);
+            break;
+
+        case 'spotify-this-song':
+            songInfo(inputParameter);
+            break;
+
+        case 'movie-this':
+            movieInfo(inputParameter);
+            break;
+
+        case 'do-what-it-says':
+            randomInfo();
+            break;
+
+        default:
+            console.log("Hmmm...LIRI doesn't quite know that");
+    }
+}
