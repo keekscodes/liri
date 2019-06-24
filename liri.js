@@ -90,6 +90,35 @@ var spotifyInfo = function(inputParameter) {
 };
 
 
+// movie-this
+
+var movieInfo = function(inputParameter) {
+    if (inputParameter === undefined) {
+        inputParameter = "Mr. Nobody"
+        console.log("---------------------------");
+        console.log("If you haven't watched 'Mr. Nobody,' then you should: http://www.imdb.com/title/tt0485947/");
+        console.log("It's on Netflix!");
+
+    }
+    var queryUrl = "http://www.omdbapi.com/?t=" + inputParameter + "&y=&plot=full&tomatoes=true&apikey=trilogy"
+
+    axios.get(queryUrl)
+        .then(function(response) {
+            var movies = response.data;
+
+            console.log("----------------MOVIE INFO----------------");
+            console.log("Title: " + movies.Title);
+            console.log("Release Year: " + movies.Year);
+            console.log("IMDB Rating: " + movies.Rated);
+            console.log("Country of Production: " + movies.Country);
+            console.log("Language: " + movies.Language);
+            console.log("Plot: " + movies.Plot);
+            console.log("Actors: " + movies.Actors);
+            console.log("Rotten Tomatoes Rating: " + movies.Ratings[1].Value);
+            console.log("----------------------------------------");
+        })
+}
+
 // Function for determining which command is executed
 var userInput = function(command, userParam) {
     switch (command) {
