@@ -119,6 +119,18 @@ var movieInfo = function(inputParameter) {
         })
 }
 
+// do-what-it-says
+
+var doWhatItSays = function() {
+    fs.readFile('random.txt', 'utf8', function(err, data) {
+        if (err) {
+            return console.log(err);
+        }
+        var dataArr = data.split(',');
+        userInput(dataArr[0], dataArr[1]);
+    });
+}
+
 // Function for determining which command is executed
 var userInput = function(command, userParam) {
     switch (command) {
