@@ -54,3 +54,30 @@ function userInput(userCommand, inputParameter) {
             console.log("Hmmm...LIRI doesn't quite know that");
     }
 }
+
+
+// concert-this artist/band name here
+var concertInfo = function(inputParameter) {
+    var queryURL = `https://rest.bandsintown.com/artists/${inputParameter}/events?app_id=codingbootcamp`;
+
+    axios.get(queryURL)
+        .then(function(response) {
+            var jsonRes = response.data;
+
+            if (!jsonRes.length) {
+                console.log(`There are currently no events scheduled for ${artist}. Check back again at a later time.`);
+                return;
+            }
+
+            console.log(`Check out these upcoming concerts for ${artist}:`);
+
+            for (let i = 0; i < jsonRes.length; i++) {
+                let event = jsonRes[i];
+
+
+                console.log(`${event.venue.city}, ${event.venue.region || event.venue.country} at ${event.venue.name} ` + moment(event.dateTime).format("MM/DD/YYYY"));
+
+            }
+
+        });
+};
