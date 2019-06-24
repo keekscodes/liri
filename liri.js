@@ -24,73 +24,64 @@ var spotify = new Spotify(keys.spotify);
 
 // capture user input
 var userCommand = process.argv[2];
-var inputParameter = process.argv[3];
+var inputParameter = process.argv.slice(3).join(" ");;
 
-// FUNCTIONS
-userInput(userCommand, inputParameter);
-
+// FUNCTIONS //
 
 
 // concert-this artist/band name here
-
-
-
-
 var concertInfo = function(inputParameter) {
     var queryURL = "https://rest.bandsintown.com/artists/" + inputParameter + "/events?app_id=codingbootcamp";
 
     axios.get(queryURL).then(
-        function(response) {
-            var jsonData = response.data;
 
-            if (!jsonData.length) {
-                console.log(`There are currently no events scheduled for ${inputParameter}. Check back again at a later time.`);
+        function(response) {
+            var jsonEvents = response.data;
+
+            if (!jsonEvents.length) {
+                console.log("There are currently no events scheduled for: " + inputParameter + ". Check back again at a later time.");
                 return;
             }
 
-            console.log(`Check out these upcoming concerts for ${inputParameter}:`);
+            console.log(`Check out these upcoming concerts for ${inputParameter}`);
 
-            for (var i = 0; i < jsonData.length; i++) {
-                var show = jsonData[i];
+            for (var i = 0; i < jsonEvents.length; i++) {
+                var event = jsonEvents[i];
 
-                // Print data about each concert
-                // If a concert doesn't have a region, display the country instead
-                // Use moment to format the date
-                console.log(
-                    show.venue.city +
-                    "," +
-                    (show.venue.region || show.venue.country) +
-                    " at " +
-                    show.venue.name +
-                    " " +
-                    moment(show.datetime).format("MM/DD/YYYY")
-                );
+                // info about each concert
+                console.log("**********EVENT INFO*********");
+                console.log("VENUE: " + event.venue.name);
+                console.log("LOCATION: " + event.venue.city || event.venue.country);
+                console.log("DATE: " + moment(event.datetime).format("MM/DD/YYYY"));
             }
         }
-    );
-};
-console.log(event);
+    )
+}
 
 
-function userInput(userCommand, inputParameter) {
-    switch (userCommand) {
-        case 'concert-this':
-            concertInfo(inputParameter);
+// Function for determining which command is executed
+var userInput = function(command, userParam) {
+    switch (command) {
+        case "concert-this":
+            concertInfo(userParam);
             break;
-
-        case 'spotify-this-song':
-            songInfo(inputParameter);
+        case "spotify-this-song":
+            getMeSpotify(userParam);
             break;
-
-        case 'movie-this':
-            movieInfo(inputParameter);
+        case "movie-this":
+            getMeMovie(userParam);
             break;
-
-        case 'do-what-it-says':
-            randomInfo();
+        case "do-what-it-says":
+            doWhatItSays();
             break;
-
         default:
             console.log("Hmmm...LIRI doesn't quite know that");
     }
-}
+};
+
+// user input command line and executes correct function accordingly
+var runUser = function(command, userParam) {
+    userInput(command, userParam);
+};
+
+runUser(userCommand, inputParameter);
