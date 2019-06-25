@@ -49,7 +49,8 @@ var concertInfo = function(inputParameter) {
                 var event = jsonEvents[i];
 
                 // info about each concert
-                console.log("---------EVENT INFO---------");
+                console.log("----------------EVENT INFO----------------");
+                console.log(i);
                 console.log("VENUE: " + event.venue.name);
                 console.log("LOCATION: " + event.venue.city || event.venue.country);
                 console.log("DATE: " + moment(event.datetime).format("MM/DD/YYYY"));
