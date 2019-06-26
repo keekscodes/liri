@@ -13,4 +13,11 @@ The user has the option of using four commands (below) in conjuntion with specif
 
 ## Instructions
 
+*  If the user inputs `concert-this` and an artist or bands name, liri will return:
+
+    * Name of the venue
+    * Venue location
+    * Date of the Event
+
+   
 
