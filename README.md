@@ -23,7 +23,7 @@ If the user inputs `concert-this` and an artist or bands name, liri will return:
 
 *  EXAMPLE: `concert-this`:
 
-    ![Image of concert-this](/screenshots/concert-this.png)
+    ![Image of concert-this](https://github.com/kamueller2/liri/blob/master/screenshots/concert-this.PNG)
 
 If the user inputs spotify-this song and the song name, liri will return:
 
