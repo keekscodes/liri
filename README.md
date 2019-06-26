@@ -29,17 +29,17 @@ If the user inputs spotify-this song and the song name, liri will return:
 
 EXAMPLE: `spotify-this-song`
 
-  ![Image of spotify-this-song](/screenshots/spotify-this-song.png)
+  ![Image of spotify-this-song](https://github.com/kamueller2/liri/blob/master/screenshots/spotify-this-song.PNG)
 
   If the user inputs movie-this and the movie name, liri will return:
 
 EXAMPLE: `movie-this`
 
-  ![Image of movie-this](/screenshots/movie-this.png)
+  ![Image of movie-this](https://github.com/kamueller2/liri/blob/master/screenshots/movie-this.PNG)
 
   If the user inputs movie-this  and the movie name, liri will return:
 
 EXAMPLE: `do-what-it-says`
 
-  ![Image of do-what-it-says](/screenshots/do-what-it-says.png)
+  ![Image of do-what-it-says](https://github.com/kamueller2/liri/blob/master/screenshots/do-what-it-says.PNG)
 
