@@ -28,16 +28,27 @@ var inputParameter = process.argv.slice(3).join(" ");;
 
 // FUNCTIONS //
 
+// 1. append liri command to log.txt
+// 2. append liri response to log.txt
+
+var recordCommand = function(userCommand) {
+    console.log("PRINTING CONCERT-THIS: ", userCommand);
+    fs.appendFile('./log.txt', userCommand, function(err) {
+        if (err) throw err;
+        console.log('Updated!');
+    });
+}
+
 
 // concert-this artist/band name here
 var concertInfo = function(inputParameter) {
     var queryURL = "https://rest.bandsintown.com/artists/" + inputParameter + "/events?app_id=codingbootcamp";
-
+    recordCommand();
     axios.get(queryURL).then(
 
         function(response) {
             var jsonEvents = response.data;
-
+            // console.log(JSON.stringify(jsonEvents, undefined, 2)); // prints arguments for result
             if (!jsonEvents.length) {
                 console.log("There are currently no events scheduled for: " + inputParameter + ". Check back again at a later time.");
                 return;
@@ -89,7 +100,6 @@ var spotifyInfo = function(inputParameter) {
         }
     );
 };
-
 
 // movie-this
 
@@ -155,6 +165,8 @@ var userInput = function(command, userParam) {
 // user input command line and executes correct function accordingly
 var runUser = function(command, userParam) {
     userInput(command, userParam);
+
+    console.log("TAKE 2 USER COMMAND: ", command)
 };
 
 runUser(userCommand, inputParameter);
